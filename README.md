@@ -14,7 +14,7 @@ expenses within any span of 24 hours exceeds $100.00*.
 
 For this challenge you can use any language you like.  You will most probably use a Scala, Python, Java or JavaScript
 (Node.js) Kafka client; we have no preference at all.  We provide a `docker-compose.yml` file containing images with a
-Kafka environment (1 ZooKeeper, 1 Kafka broker and a Schema Registry) like this:
+Kafka environment, so you can run Kafka locally (1 ZooKeeper, 1 Kafka broker and a Schema Registry) like this:
 - bootstrap server: `localhost:9092`
 - credit card transactions topic name: `au.com.eliiza.cctransactions.avro`
 - Schema Registry URL: `http://localhost:8081`
@@ -28,7 +28,7 @@ inspect the schema for the credit card transactions topic, head to the following
 **Tips**:
 - By using a deserialiser from Confluent (there are some available
 [here](https://github.com/confluentinc/schema-registry/tree/master/avro-serde/src/main/java/io/confluent/kafka/streams/serdes/avro)),
-you don't need to bother with wire format's details, and can read an event value straight into a
+you don't need to bother with the wire format's details, and can read an event value straight into a
 [GenericRecord](https://github.com/apache/avro/blob/master/lang/java/avro/src/main/java/org/apache/avro/generic/GenericRecord.java)
 or a
 [SpecificRecord](https://github.com/apache/avro/blob/master/lang/java/avro/src/main/java/org/apache/avro/specific/SpecificRecord.java).
@@ -38,15 +38,14 @@ to help process the above topic, if you fancy that library.
 
 ## Starting the Kafka environment with Docker Compose
 
-First of all, install [Docker Compose](https://docs.docker.com/compose/install/) for your system, if you don't already
-have it.  Then:
+First of all, install [Docker Compose](https://docs.docker.com/compose/install/) for your system.  Then:
 
     $ git clone https://github.com/eliiza/challenge-fraud-detection.git myrepo
     $ cd myrepo
     $ docker-compose up
 
-After all the images are downloaded and Kafka is up and running, you should start seeing our service logging the
-production of credit card transactions (and other events into topics not needed in this challenge).  Once you solve the challenge, send
-us back your code and the set of credit cards presenting potential fraud.
+After all the images are downloaded and Kafka is up and running, you should start seeing our service producing credit
+card transactions (and other events into topics not needed by this challenge).  Once you solve the challenge, send us
+**your code and the set of credit cards presenting potential fraud**.
 
 Good luck!!!
