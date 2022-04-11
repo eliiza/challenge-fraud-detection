@@ -1,22 +1,19 @@
-version: '2.1'
+version: '3'
 
 services:
   zoo1:
-    image: zookeeper:3.4.14
+    image: zookeeper:3.8.0
     restart: unless-stopped
     hostname: zoo1
     ports:
       - "2181:2181"
     environment:
-      ZOO_MY_ID: 1
-      ZOO_PORT: 2181
-      ZOO_SERVERS: server.1=zoo1:2888:3888
-    volumes:
-      - ./docker-data/full-stack/zoo1/data:/data
-      - ./docker-data/full-stack/zoo1/datalog:/datalog
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_SERVER_ID: 1
+      ZOOKEEPER_SERVERS: zoo1:2888:3888
 
   kafka1:
-    image: confluentinc/cp-kafka:5.4.0
+    image: confluentinc/cp-kafka:7.0.1
     hostname: kafka1
     ports:
       - "9092:9092"
@@ -28,10 +25,25 @@ services:
       KAFKA_BROKER_ID: 1
       KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-    volumes:
-      - ./docker-data/full-stack/kafka1/data:/var/lib/kafka/data
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "true"
     depends_on:
       - zoo1
+
+  kafka-schema-registry:
+    image: confluentinc/cp-schema-registry:7.0.1
+    hostname: kafka-schema-registry
+    container_name: kafka-schema-registry
+    ports:
+      - "8081:8081"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka1:19092
+      SCHEMA_REGISTRY_HOST_NAME: kafka-schema-registry
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
+    depends_on:
+      - zoo1
+      - kafka1
 
   kafka-coding-challenge:
     image: eliiza/kafka-coding-challenge:latest
@@ -39,5 +51,7 @@ services:
       - "8083:8083"
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka1:19092
+      KAFKA_SCHEMA_REGISTRY_URL: http://kafka-schema-registry:8081
     depends_on:
       - kafka1
+      - kafka-schema-registry
