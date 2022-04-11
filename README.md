@@ -46,7 +46,7 @@ have it.  Then:
     $ docker-compose up
 
 After all the images are downloaded and Kafka is up and running, you should start seeing our service logging the
-production of credit card transactions (and a few other events into other topics).  Once you solve the challenge, send
+production of credit card transactions (and other events into topics not needed in this challenge).  Once you solve the challenge, send
 us back your code and the set of credit cards presenting potential fraud.
 
 Good luck!!!
