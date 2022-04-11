@@ -6,7 +6,7 @@ In this challenge you're given data containing some credit card transactions.
 
 ## Challenge
 
-Because the data is streaming through a Kafka topic, the challenge consists in tapping onto that topic, consuming the
+Because the data is streaming through a Kafka topic, the challenge consists in tapping into that topic, consuming the
 credit card transactions and identifying **the credit card numbers** subject to potential *fraud when the sum of
 expenses within any span of 24 hours exceeds $100.00*.
 
@@ -19,7 +19,7 @@ Kafka environment (1 ZooKeeper, 1 Kafka broker and a Schema Registry) like this:
 - credit card transactions topic name: `au.com.eliiza.cctransactions.avro`
 - Schema Registry URL: `http://localhost:8081`
 
-Note that the topic contains data in the **[Avro](https://avro.apache.org/docs/current/spec.html)** format, serialised
+Note that the topic contains data in **[Avro](https://avro.apache.org/docs/current/spec.html)** format, serialised
 with Confluent's
 [Wire Format](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#wire-format).  To
 inspect the schema for the credit card transactions topic, head to the following Schema Registry endpoint:
