@@ -19,7 +19,7 @@ Kafka environment (1 ZooKeeper, 1 Kafka broker and a Schema Registry) like this:
 - credit card transactions topic name: `au.com.eliiza.cctransactions.avro`
 - Schema Registry URL: `http://localhost:8081`
 
-Note that the topic contains data in the **[AVRO](https://avro.apache.org/docs/current/spec.html)** format, serialized
+Note that the topic contains data in the **[AVRO](https://avro.apache.org/docs/current/spec.html)** format, serialised
 with Confluent's
 [Wire Format](https://docs.confluent.io/platform/current/schema-registry/serdes-develop/index.html#wire-format).  To
 inspect the schema for the credit card transactions topic, head to the following Schema Registry endpoint:
@@ -27,7 +27,7 @@ inspect the schema for the credit card transactions topic, head to the following
 
 **Tips**:
 - By using a deserialiser from Confluent (there are some available
-[here](https://github.com/confluentinc/schema-registry/tree/master/avro-serde/src/main/java/io/confluent/kafka/streams/serdes/avro),
+[here](https://github.com/confluentinc/schema-registry/tree/master/avro-serde/src/main/java/io/confluent/kafka/streams/serdes/avro)),
 you don't need to bother with wire format's details, and can read an event value straight into a
 [GenericRecord](https://github.com/apache/avro/blob/master/lang/java/avro/src/main/java/org/apache/avro/generic/GenericRecord.java)
 or a
