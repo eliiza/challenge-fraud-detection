@@ -14,7 +14,8 @@ expenses within any span of 24 hours exceeds $100.00*.
 
 For this challenge you can use any language you like.  You will most probably use a Scala, Python, Java or JavaScript
 (Node.js) Kafka client; we have no preference at all.  We provide a `docker-compose.yml` file containing images with a
-Kafka environment, so you can run Kafka locally (1 ZooKeeper, 1 Kafka broker and a Schema Registry) like this:
+Kafka environment (1 ZooKeeper, 1 Kafka broker and a Schema Registry), so you can run Kafka locally with the following
+specs:
 - bootstrap server: `localhost:9092`
 - credit card transactions topic name: `au.com.eliiza.cctransactions.avro`
 - Schema Registry URL: `http://localhost:8081`
